@@ -10,14 +10,13 @@ def randomizarTabuleiroQuadro():
     colunas = 5
     linha = 5
 
-    listaObjetos = ['🌐', '💣', '⛏']
 
     tabuleiro = np.zeros((linha, colunas), str)
 
     # Fazer um tabuleiro do ZERO
     for i in range(linha):
-        y = random.choices(['🌐', '💣', '⛏'], [8, 3, 1], k=colunas)
-        tabuleiro[i] = y
+        tabuleiro[i] = random.choices(['🌐', '💣', '⛏'], [8, 3, 1], k=colunas)
+
 
     for i in range(len(tabuleiro)):
         for j in range(len(tabuleiro)):
@@ -108,10 +107,10 @@ def startGame(continuação):
         tipo = int(input("TIPO DE JOGO\n[1] EM LINHA\n[2] EM QUADRO !!! AINDA NÃO FUNCIONAL: \n-"))
 
     if tipo == 1:
-        modoUm()
+        modo()
 
     else:
-        modoDois()
+        modo(None)
     print("=========================================================")
 
     while continuação == 1:
@@ -123,9 +122,9 @@ def startGame(continuação):
 
         else:
             if tipo == 1:
-                modoUm()
+                modo()
             else:
-                modoDois()
+                modo(None)
 
 def verificarCampos(tabuleiroVerdadeiro, tabuleiroFalso):
     # Feita para vericar cada unidade do vetor ou matriz e retornar True se todas as unidades contendo Terra foram adivinhadas,
@@ -179,7 +178,7 @@ def verificarCampos(tabuleiroVerdadeiro, tabuleiroFalso, i):
     # Faz contagem de quantas unidades foram acertadas.
     for i in range(len(tabuleiroFalso)):
         for j in range(len(tabuleiroFalso)):
-            if "❌" in tabuleiroFalso[i][j]:
+            if "0" in tabuleiroFalso[i][j] or "1" in tabuleiroFalso[i][j] or "2" in tabuleiroFalso[i][j] or "3" in tabuleiroFalso[i][j] or "4" in tabuleiroFalso[i][j] or "5" in tabuleiroFalso[i][j] or "6" in tabuleiroFalso[i][j]:
                 correto += 1
 
     # Verifica se a quantidade de Terra e a quantidade de unidades acertadas são iguas, se forem iguais o jogo acaba
@@ -190,7 +189,7 @@ def verificarCampos(tabuleiroVerdadeiro, tabuleiroFalso, i):
     else:
         return False
 
-def modoUm():
+def modo():
     #Modo de jogo em linha == Vetor
 
     # Aqui cria os vetores ou matrizes para começar o jogo
@@ -249,7 +248,7 @@ def modoUm():
                     print("=========================================================\nParabén você ganhou!!!!!!!!!!!!!!!!!!!")
                     tentantiva = False
 
-def modoDois():
+def modo(i):
     #Modo de jogo em Quadro == Matriz
 
     # Aqui cria os vetores ou matrizes para começar o jogo
@@ -258,7 +257,6 @@ def modoDois():
     tentantiva = True
 
     while tentantiva == True:
-        print(tabuleiro)
         print(provTab)
         linha = int(input("Linha jogada: "))
         while linha > 5:
@@ -339,7 +337,7 @@ def modoDois():
                                     if i == (linha - 1):
                                         for j in range(len(provTab)):
                                             if i == linha - 1 and j == coluna - 1:
-                                                provTab[i][j] =  f"{bombas}❌"
+                                                provTab[i][j] =  f"{str(bombas)}❌"
                             if verificarCampos(tabuleiro,provTab, i) == True:
                                 print(tabuleiro)
                                 print("=========================================================\nParabén você ganhou!!!!!!!!!!!!!!!!!!!")
